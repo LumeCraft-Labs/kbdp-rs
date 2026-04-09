@@ -1,0 +1,34 @@
+[package]
+name = "kbdp-rs"
+version = "0.1.0"
+description = "键盘按键检测工具 — Keyboard Probe"
+edition = "2024"
+license = "MIT"
+
+[[bin]]
+name = "kbdp-rs"
+path = "src/main.rs"
+
+[dependencies]
+gpui-ce = { version = "0.3", default-features = false, features = ["windows-manifest"] }
+log = "0.4"
+
+[build-dependencies]
+embed-resource = "3"
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { version = "0.62", features = [
+    "Win32_Foundation",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Threading",
+] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true
+codegen-units = 1
+panic = "abort"
+
+

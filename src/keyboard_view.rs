@@ -3,9 +3,8 @@
 use std::collections::HashMap;
 use std::sync::mpsc::Receiver;
 
-use gpui::{
-    Context, IntoElement, ParentElement, Render, SharedString, Styled, Window,
-    div, px,
+use gpui_kit::{
+    Context, IntoElement, ParentElement, Render, SharedString, Styled, Window, div, px,
 };
 
 use crate::hook::HookKeyEvent;
@@ -73,10 +72,7 @@ impl KeyboardView {
 
         // 占位符（间距）：仅占宽度，不渲染内容
         if key.id >= 0xFFFE {
-            return div()
-                .w(px(cell_w))
-                .h(px(cell_h))
-                .into_any_element();
+            return div().w(px(cell_w)).h(px(cell_h)).into_any_element();
         }
 
         let state = self.state_of(key.id);
@@ -160,10 +156,10 @@ impl KeyboardView {
         div()
             .flex()
             .flex_col()
-            .child(self.render_row(layout::NAV_ROW0, u))   // PrtSc/ScrLk/Pause → F 键行
-            .child(self.render_row(layout::NAV_ROW1, u))   // Ins/Home/PgUp → 数字行
-            .child(self.render_row(layout::NAV_ROW2, u))   // Del/End/PgDn → Tab 行
-            .child(div().h(px(u)))                         // 空行 → Caps 行
+            .child(self.render_row(layout::NAV_ROW0, u)) // PrtSc/ScrLk/Pause → F 键行
+            .child(self.render_row(layout::NAV_ROW1, u)) // Ins/Home/PgUp → 数字行
+            .child(self.render_row(layout::NAV_ROW2, u)) // Del/End/PgDn → Tab 行
+            .child(div().h(px(u))) // 空行 → Caps 行
             // 方向键区：上键居中 → Shift 行
             .child(
                 div()
@@ -185,27 +181,31 @@ impl KeyboardView {
             .child(self.render_row(layout::NUM_ROW0, u))
             // 第 1-2 行：7/8/9 和 4/5/6，右侧 + 键跨两行
             .child(
-                div().flex().flex_row().child(
-                    div()
-                        .flex()
-                        .flex_col()
-                        .child(self.render_row(&layout::NUM_ROW1[..3], u))
-                        .child(self.render_row(layout::NUM_ROW2, u)),
-                ).child(
-                    self.render_key(&layout::NUM_ROW1[3], u),
-                ),
+                div()
+                    .flex()
+                    .flex_row()
+                    .child(
+                        div()
+                            .flex()
+                            .flex_col()
+                            .child(self.render_row(&layout::NUM_ROW1[..3], u))
+                            .child(self.render_row(layout::NUM_ROW2, u)),
+                    )
+                    .child(self.render_key(&layout::NUM_ROW1[3], u)),
             )
             // 第 3-4 行：1/2/3 和 0/.，右侧 Enter 跨两行
             .child(
-                div().flex().flex_row().child(
-                    div()
-                        .flex()
-                        .flex_col()
-                        .child(self.render_row(&layout::NUM_ROW3[..3], u))
-                        .child(self.render_row(layout::NUM_ROW4, u)),
-                ).child(
-                    self.render_key(&layout::NUM_ROW3[3], u),
-                ),
+                div()
+                    .flex()
+                    .flex_row()
+                    .child(
+                        div()
+                            .flex()
+                            .flex_col()
+                            .child(self.render_row(&layout::NUM_ROW3[..3], u))
+                            .child(self.render_row(layout::NUM_ROW4, u)),
+                    )
+                    .child(self.render_key(&layout::NUM_ROW3[3], u)),
             )
     }
 }

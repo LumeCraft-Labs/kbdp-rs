@@ -1,7 +1,6 @@
 // 颜色主题定义
 
-use gpui::rgb;
-use gpui::Rgba;
+use gpui_kit::{Rgba, rgb};
 
 /// 将 u32 颜色值转换为 Rgba（gpui 使用 Rgba 作为颜色类型）
 fn c(hex: u32) -> Rgba {
@@ -46,5 +45,3 @@ pub fn key_fg_released() -> Rgba {
 pub fn window_bg() -> Rgba {
     c(0x0A1520)
 }
-
-

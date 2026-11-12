@@ -1,6 +1,6 @@
 [package]
 name = "kbdp-rs"
-version = "0.1.0"
+version = "0.2.0"
 description = "键盘按键检测工具 — Keyboard Probe"
 edition = "2024"
 license = "MIT"
@@ -10,7 +10,7 @@ name = "kbdp-rs"
 path = "src/main.rs"
 
 [dependencies]
-gpui-ce = { version = "0.3", default-features = false, features = ["windows-manifest"] }
+gpui-kit = { version = "0.9", default-features = false }
 log = "0.4"
 
 [build-dependencies]
